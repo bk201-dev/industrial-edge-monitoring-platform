@@ -109,46 +109,54 @@ Placement affected routing.
 
 And eventually, all of these decisions shaped the final board.
 
-# The Board Has Multiple Worlds
+---
 
-One of the main challenges was bringing several very different electrical functions together on the same PCB.
+## The Board Has Multiple Worlds
 
-### 🧠 Embedded Processing
+One of the main challenges was making several very different electrical functions coexist on the same PCB.
 
-The STM32 acts as the central controller of the system, managing communication, monitoring and the different peripherals connected to the board.
+```mermaid
+flowchart TB
 
-### 🔌 Industrial Communication
+    MCU["STM32<br/>Embedded Core"]:::core
 
-An isolated RS-485 interface allows communication with industrial equipment using **Modbus RTU**.
+    POWER["Power<br/>Distribution"]:::power
+    RS485["Isolated<br/>RS-485"]:::industrial
+    LTE["LTE Cat-1<br/>Connectivity"]:::wireless
+    GNSS["GNSS<br/>Positioning"]:::wireless
+    MEMORY["Local<br/>Storage"]:::memory
+    MONITOR["Fault & Relay<br/>Monitoring"]:::monitor
+    DEBUG["USB / Debug<br/>Interfaces"]:::debug
 
-### 📡 Cellular Connectivity
+    POWER --> MCU
+    RS485 <--> MCU
+    LTE <--> MCU
+    GNSS --> MCU
+    MEMORY <--> MCU
+    MONITOR --> MCU
+    DEBUG <--> MCU
 
-An LTE Cat-1 modem provides remote communication between the transformer cabinet and external systems.
+    classDef core fill:#172554,stroke:#818CF8,color:#FFFFFF,stroke-width:3px;
+    classDef power fill:#431407,stroke:#FB923C,color:#FFFFFF,stroke-width:2px;
+    classDef industrial fill:#083344,stroke:#22D3EE,color:#FFFFFF,stroke-width:2px;
+    classDef wireless fill:#312E81,stroke:#A78BFA,color:#FFFFFF,stroke-width:2px;
+    classDef memory fill:#052E16,stroke:#4ADE80,color:#FFFFFF,stroke-width:2px;
+    classDef monitor fill:#450A0A,stroke:#F87171,color:#FFFFFF,stroke-width:2px;
+    classDef debug fill:#27272A,stroke:#FACC15,color:#FFFFFF,stroke-width:2px;
+```
 
-### 🛰️ GNSS
+The board brings together several different electrical environments:
 
-GNSS capability can provide positioning information when required by the application.
+- **Embedded processing** — the STM32 is the central controller of the system.
+- **Industrial communication** — isolated RS-485 provides reliable Modbus RTU communication.
+- **Cellular connectivity** — LTE Cat-1 enables remote communication.
+- **GNSS** — provides positioning capability when required.
+- **Local storage** — keeps important information available locally.
+- **Monitoring** — handles fault and relay-state information.
+- **Power** — supplies sections with very different electrical requirements.
+- **Debug interfaces** — support programming, testing and diagnostics.
 
-### 💾 Local Storage
-
-Local memory allows important information to be stored even when remote communication is temporarily unavailable.
-
-### ⚡ Power
-
-Different parts of the system have very different power requirements.
-
-Special attention was given to:
-
-- Power distribution
-- Cellular modem current peaks
-- Local decoupling
-- Filtering
-- Protection
-- Grounding
-
-### 🛡️ Isolation
-
-The industrial communication interface required a clear separation between different electrical domains while still allowing reliable data exchange.
+The real challenge was not adding these functions individually, but making all of them work reliably together on the same board.
 
 ---
 
