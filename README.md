@@ -74,35 +74,31 @@ flowchart LR
     DEBUG <--> MCU
 ```
 ---
-
-# From Intent to Copper
-
-The project did not start with a PCB.
-
-It started with a set of system requirements that had to be translated into a real electronic architecture.
-
-## From Requirements to Manufacturing
+## From Intent to Copper
 
 ```mermaid
 flowchart TD
-    A["📋 Requirements"] --> B["🧩 System Architecture"]
-    B --> C["🔎 Component Selection"]
-    C --> D["📐 Schematic Design"]
-    D --> E["⚡ Power & Isolation Strategy"]
-    E --> F["📍 PCB Placement"]
-    F --> G["🛣️ Routing"]
-    G --> H["✅ Electrical & Mechanical Checks"]
-    H --> I["🏭 Manufacturing"]
+    A["Requirements"] --> B["System Architecture"]
+    B --> C["Component Selection"]
+    C --> D["Schematic Design"]
+    D --> E["Power & Isolation Strategy"]
+    E --> F["PCB Placement"]
+    F --> G["Routing"]
+    G --> H["Electrical & Mechanical Checks"]
+    H --> I["Manufacturing"]
 
-    classDef start fill:#0f172a,stroke:#38bdf8,color:#ffffff,stroke-width:2px;
-    classDef design fill:#1e293b,stroke:#818cf8,color:#ffffff,stroke-width:2px;
-    classDef build fill:#0b3b2e,stroke:#34d399,color:#ffffff,stroke-width:2px;
-    classDef final fill:#4c0519,stroke:#fb7185,color:#ffffff,stroke-width:2px;
+    classDef input fill:#0B2533,stroke:#38BDF8,color:#FFFFFF,stroke-width:2px;
+    classDef design fill:#172554,stroke:#818CF8,color:#FFFFFF,stroke-width:2px;
+    classDef pcb fill:#18392B,stroke:#34D399,color:#FFFFFF,stroke-width:2px;
+    classDef verify fill:#422006,stroke:#FBBF24,color:#FFFFFF,stroke-width:2px;
+    classDef final fill:#3F1722,stroke:#FB7185,color:#FFFFFF,stroke-width:3px;
 
-    class A start;
-    class B,C,D,E,F,G design;
-    class H build;
+    class A input;
+    class B,C,D,E design;
+    class F,G pcb;
+    class H verify;
     class I final;
+```
 
 Every stage influenced the next one.
 
@@ -112,8 +108,6 @@ The power architecture affected placement.
 Placement affected routing.
 
 And eventually, all of these decisions shaped the final board.
-
----
 
 # The Board Has Multiple Worlds
 
