@@ -290,7 +290,15 @@ flowchart LR
     classDef orange fill:#431407,stroke:#FB923C,color:#FFFFFF,stroke-width:2px;
     classDef green fill:#052E16,stroke:#4ADE80,color:#FFFFFF,stroke-width:2px;
     classDef yellow fill:#422006,stroke:#FACC15,color:#FFFFFF,stroke-width:2px;
+```
+
+The goal was not simply to connect every component.
+
+The goal was to make the board **electrically reliable, physically organized and ready to manufacture**.
+
 ---
+
+## From Screen to Board
 
 # From Screen to Board
 
