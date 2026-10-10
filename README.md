@@ -249,7 +249,47 @@ mindmap
       DRC
       Manufacturing review
 ```
+---
 
+## PCB Design
+
+This is where the system architecture became a physical board.
+
+The design was implemented as a **4-layer PCB**, with the placement and routing organized around power, communication, isolation, RF and mechanical constraints.
+
+<p align="center">
+  <img src="media/pcb-3d/edgeguard-render.png" width="88%">
+</p>
+
+### Design Focus
+
+| ⚡ Power Integrity | 🔌 Industrial Interfaces | 📡 RF & Connectivity | 🧩 PCB Integration |
+|:---:|:---:|:---:|:---:|
+| Stable power distribution | Isolated RS-485 | LTE Cat-1 integration | Functional placement |
+| Local decoupling | Modbus communication | GNSS capability | Multilayer routing |
+| Cellular current peaks | Interface protection | Antenna keep-out | Ground strategy |
+| Protection stages | Domain separation | Short RF paths | Mechanical checks |
+
+<br>
+
+### From Placement to Routing
+
+```mermaid
+flowchart LR
+
+    A["FUNCTIONAL<br/>ZONING"]:::blue
+    B["COMPONENT<br/>PLACEMENT"]:::purple
+    C["POWER & GROUND<br/>PLANNING"]:::orange
+    D["SIGNAL<br/>ROUTING"]:::green
+    E["DRC &<br/>VALIDATION"]:::yellow
+
+    A --> B --> C --> D --> E
+
+    classDef blue fill:#082F49,stroke:#38BDF8,color:#FFFFFF,stroke-width:2px;
+    classDef purple fill:#2E1065,stroke:#C084FC,color:#FFFFFF,stroke-width:2px;
+    classDef orange fill:#431407,stroke:#FB923C,color:#FFFFFF,stroke-width:2px;
+    classDef green fill:#052E16,stroke:#4ADE80,color:#FFFFFF,stroke-width:2px;
+    classDef yellow fill:#422006,stroke:#FACC15,color:#FFFFFF,stroke-width:2px;
 ---
 
 # From Screen to Board
