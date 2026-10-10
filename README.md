@@ -160,27 +160,58 @@ The real challenge was not adding these functions individually, but making all o
 
 ---
 
-# Decisions That Shaped the Board
-
-Some design choices had a direct impact on the final PCB.
-
-| Engineering Decision | Why It Mattered |
-|---|---|
-| Isolated RS-485 | Keeps the industrial communication side separated from the main logic |
-| Multilayer PCB | Provides better grounding, routing and power distribution |
-| Dedicated modem power path | Supports the high current peaks required by cellular communication |
-| RF routing strategy | Helps maintain reliable cellular and GNSS communication |
-| Protection circuits | Protect sensitive electronics from the external environment |
-| Structured grounding | Helps different electrical sections work together correctly |
-| Local storage | Keeps important data available even without remote communication |
-| Diagnostic interfaces | Makes development, testing and maintenance easier |
-
-These decisions were connected.
-
-Changing one part of the design could affect power, placement, routing or even the mechanical layout of the board.
-
 ---
 
+## Decisions That Shaped the Board
+
+The final PCB was shaped by a few key engineering decisions. Each one solved a different constraint of the system.
+
+```mermaid
+flowchart LR
+
+    ISO["ISOLATION<br/><small>Separate industrial and logic domains</small>"]:::cyan
+    POWER["POWER<br/><small>Handle modem current peaks</small>"]:::orange
+    RF["RF<br/><small>Protect antenna performance</small>"]:::purple
+
+    BOARD["EDGEGUARD<br/>MULTILAYER PCB"]:::core
+
+    GND["GROUNDING<br/><small>Control return paths and noise</small>"]:::green
+    PROT["PROTECTION<br/><small>Protect external interfaces</small>"]:::red
+    DEBUG["DIAGNOSTICS<br/><small>Support testing and maintenance</small>"]:::yellow
+
+    ISO --> BOARD
+    POWER --> BOARD
+    RF --> BOARD
+
+    BOARD --> GND
+    BOARD --> PROT
+    BOARD --> DEBUG
+
+    classDef core fill:#111827,stroke:#38BDF8,color:#FFFFFF,stroke-width:4px;
+    classDef cyan fill:#083344,stroke:#22D3EE,color:#FFFFFF,stroke-width:2px;
+    classDef orange fill:#431407,stroke:#FB923C,color:#FFFFFF,stroke-width:2px;
+    classDef purple fill:#2E1065,stroke:#C084FC,color:#FFFFFF,stroke-width:2px;
+    classDef green fill:#052E16,stroke:#4ADE80,color:#FFFFFF,stroke-width:2px;
+    classDef red fill:#450A0A,stroke:#FB7185,color:#FFFFFF,stroke-width:2px;
+    classDef yellow fill:#422006,stroke:#FACC15,color:#FFFFFF,stroke-width:2px;
+```
+
+### Why these choices mattered
+
+| Decision | Impact on the design |
+|---|---|
+| **Isolated RS-485** | Kept the industrial communication side separated from the MCU domain |
+| **Dedicated modem power path** | Helped support the high current demand of cellular communication |
+| **RF-aware placement** | Kept sensitive RF paths short and protected antenna areas |
+| **Multilayer architecture** | Improved grounding, routing and power distribution |
+| **Protection circuits** | Added protection between the board and the external environment |
+| **Structured grounding** | Helped different electrical sections coexist more reliably |
+| **Diagnostic interfaces** | Made programming, testing and troubleshooting easier |
+
+> The board was not shaped by one big decision.  
+> It was shaped by many small decisions that had to work together.
+
+---
 # Engineering Constraints Map
 
 ```mermaid
