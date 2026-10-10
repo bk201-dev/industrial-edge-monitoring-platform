@@ -81,25 +81,28 @@ The project did not start with a PCB.
 
 It started with a set of system requirements that had to be translated into a real electronic architecture.
 
-```text
-Requirements
-     ↓
-System Architecture
-     ↓
-Component Selection
-     ↓
-Schematic Design
-     ↓
-Power + Isolation Strategy
-     ↓
-PCB Placement
-     ↓
-Routing
-     ↓
-Electrical & Mechanical Checks
-     ↓
-Manufacturing
-```
+## From Requirements to Manufacturing
+
+```mermaid
+flowchart TD
+    A["📋 Requirements"] --> B["🧩 System Architecture"]
+    B --> C["🔎 Component Selection"]
+    C --> D["📐 Schematic Design"]
+    D --> E["⚡ Power & Isolation Strategy"]
+    E --> F["📍 PCB Placement"]
+    F --> G["🛣️ Routing"]
+    G --> H["✅ Electrical & Mechanical Checks"]
+    H --> I["🏭 Manufacturing"]
+
+    classDef start fill:#0f172a,stroke:#38bdf8,color:#ffffff,stroke-width:2px;
+    classDef design fill:#1e293b,stroke:#818cf8,color:#ffffff,stroke-width:2px;
+    classDef build fill:#0b3b2e,stroke:#34d399,color:#ffffff,stroke-width:2px;
+    classDef final fill:#4c0519,stroke:#fb7185,color:#ffffff,stroke-width:2px;
+
+    class A start;
+    class B,C,D,E,F,G design;
+    class H build;
+    class I final;
 
 Every stage influenced the next one.
 
