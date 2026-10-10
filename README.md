@@ -169,15 +169,19 @@ The final PCB was shaped by a few key engineering decisions. Each one solved a d
 ```mermaid
 flowchart LR
 
-    ISO["ISOLATION<br/><small>Separate industrial and logic domains</small>"]:::cyan
-    POWER["POWER<br/><small>Handle modem current peaks</small>"]:::orange
-    RF["RF<br/><small>Protect antenna performance</small>"]:::purple
+    ISO["ISOLATION<br/>Separate industrial<br/>and logic domains"]:::cyan
+
+    POWER["POWER<br/>Handle cellular modem<br/>current peaks"]:::orange
+
+    RF["RF<br/>Protect antenna<br/>performance"]:::purple
 
     BOARD["EDGEGUARD<br/>MULTILAYER PCB"]:::core
 
-    GND["GROUNDING<br/><small>Control return paths and noise</small>"]:::green
-    PROT["PROTECTION<br/><small>Protect external interfaces</small>"]:::red
-    DEBUG["DIAGNOSTICS<br/><small>Support testing and maintenance</small>"]:::yellow
+    GND["GROUNDING<br/>Control return paths<br/>and reduce noise"]:::green
+
+    PROT["PROTECTION<br/>Protect sensitive<br/>external interfaces"]:::red
+
+    DEBUG["DIAGNOSTICS<br/>Support testing<br/>and maintenance"]:::yellow
 
     ISO --> BOARD
     POWER --> BOARD
