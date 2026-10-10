@@ -1,3 +1,14 @@
+<p align="center">
+  <img src="media/banner/edgeguard-banner.png" width="100%" alt="EdgeGuard Industrial Edge Monitoring Platform">
+</p>
+
+<h1 align="center">EDGEGUARD</h1>
+
+<h3 align="center">Industrial Edge Monitoring Platform</h3>
+
+<p align="center">
+  From system architecture and embedded hardware to multilayer PCB design and real manufacturing.
+</p>
 <div align="center">
 
 # EDGEGUARD
