@@ -230,11 +230,8 @@ Manufacturing Files
 Physical PCB
 ```
 
-<p align="center">
-  <img src="media/manufactured-board/board-top.jpg" width="70%">
-</p>
 
-Once the PCB was manufactured, every earlier design choice became real.
+Once the PCB is manufactured, every earlier design choice became real.
 
 Connector positions, footprints, dimensions, clearances and component placement were no longer just elements on a screen — they became physical parts of the final system.
 
