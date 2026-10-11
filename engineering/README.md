@@ -237,3 +237,140 @@ flowchart LR
 > **With GNSS, placement and routing become part of the RF design, not just the PCB layout.**
 
 ---
+<br>
+
+<h3 align="center">GNSS Design References</h3>
+
+<p align="center">
+  <sub>
+    Manufacturer recommendations used as references for the antenna interface,
+    impedance control and RF routing strategy.
+  </sub>
+</p>
+
+<br>
+
+<p align="center">
+  <img src="../media/documentation/gnss-reference-circuit.png" width="40%">
+  <br><br>
+  <b>GNSS Antenna Reference Circuit</b>
+  <br>
+  <sub>
+    Recommended antenna interface and matching network for the GNSS RF path.
+  </sub>
+</p>
+
+<br>
+
+<table>
+<tr>
+<td align="center" width="50%">
+<b>50 Ω GNSS Interface</b><br><br>
+<img src="../media/documentation/gnss-50ohm-interface.png" width="95%"><br><br>
+<sub>The ANT_GNSS interface is specified with a characteristic impedance of 50 Ω.</sub>
+</td>
+<td align="center" width="50%">
+<b>4-Layer RF Routing Reference</b><br><br>
+<img src="../media/documentation/rf-4layer-cpw-reference.png" width="95%"><br><br>
+<sub>Coplanar-waveguide geometry used as a reference for controlled-impedance RF routing.</sub>
+</td>
+</tr>
+</table>
+
+<br>
+
+<p align="center">
+  <img src="../media/documentation/gnss-antenna-requirements.png" width="52%">
+  <br><br>
+  <b>GNSS Antenna Requirements</b>
+  <br>
+  <sub>
+    Manufacturer requirements covering operating frequency, VSWR, gain and antenna characteristics.
+  </sub>
+</p>
+
+<br>
+
+<p align="center">
+  <sub><i>Source: Quectel Hardware Design documentation.</i></sub>
+</p>
+
+---
+
+## Fault & Relay-State Monitoring
+
+A key function of the board is monitoring the electrical state of external relay and fault signals.
+
+Because these signals come from the field, they cannot be connected directly to the STM32.  
+The input stage therefore conditions and protects the signal before it reaches the MCU.
+
+```mermaid
+flowchart LR
+
+    FIELD["FIELD<br/>RELAY SIGNAL"]:::field
+    PROT["INPUT<br/>PROTECTION"]:::protect
+    FILTER["FILTERING &<br/>POLARIZATION"]:::filter
+    BUFFER["SCHMITT<br/>BUFFER"]:::buffer
+    MCU["STM32<br/>DIGITAL INPUT"]:::mcu
+    LOGIC["FAULT / STATE<br/>PROCESSING"]:::logic
+
+    FIELD --> PROT
+    PROT --> FILTER
+    FILTER --> BUFFER
+    BUFFER --> MCU
+    MCU --> LOGIC
+
+    classDef field fill:#450A0A,stroke:#FB7185,color:#FFFFFF,stroke-width:2px;
+    classDef protect fill:#431407,stroke:#FB923C,color:#FFFFFF,stroke-width:2px;
+    classDef filter fill:#422006,stroke:#FACC15,color:#FFFFFF,stroke-width:2px;
+    classDef buffer fill:#083344,stroke:#22D3EE,color:#FFFFFF,stroke-width:2px;
+    classDef mcu fill:#172554,stroke:#60A5FA,color:#FFFFFF,stroke-width:3px;
+    classDef logic fill:#052E16,stroke:#4ADE80,color:#FFFFFF,stroke-width:2px;
+```
+
+### Design Considerations
+
+- Protection of the MCU from external field signals
+- Input filtering to reduce noise and false transitions
+- Defined logic states through signal polarization
+- Clean digital transitions before the STM32 input
+- Reliable detection of relay and fault states
+- Separation between field-side signals and digital processing
+
+A Schmitt-trigger buffer was used to provide clean logic transitions before the signal reached the STM32.
+
+> **The goal was not only to detect a relay state, but to make sure the MCU receives a clean and reliable digital signal.**
+
+---
+<br>
+
+<h3 align="center">Logic Level Translation Reference</h3>
+
+<p align="center">
+  <sub>
+    The SN74LVC1T45 was used as a reference for communication between logic domains operating at different voltage levels.
+  </sub>
+</p>
+
+<br>
+
+<table>
+<tr>
+<td align="center" width="50%">
+<b>Level-Shifting Application</b><br><br>
+<img src="../media/documentation/level-shifter-application.png" width="95%"><br><br>
+<sub>Typical unidirectional translation between two logic-voltage domains.</sub>
+</td>
+<td align="center" width="50%">
+<b>Voltage Translation Waveform</b><br><br>
+<img src="../media/documentation/level-shifter-waveform.png" width="95%"><br><br>
+<sub>Example waveform showing logic translation from 1.8 V to 5 V.</sub>
+</td>
+</tr>
+</table>
+
+<br>
+
+<p align="center">
+  <sub><i>Source: Texas Instruments — SN74LVC1T45 Datasheet.</i></sub>
+</p>
