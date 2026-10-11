@@ -352,7 +352,7 @@ The goal was to make the board **electrically reliable, physically organized and
 
 <p align="center">
   <img src="https://img.shields.io/badge/Altium_Designer-A5915F?style=for-the-badge&logo=altiumdesigner&logoColor=white">
-  <img src="https://img.shields.io/badge/4--Layer_PCB-166534?style=for-the-badge">
+  <img src="https://img.shields.io/badge/JLCPCB tools-166534?style=for-the-badge">
   <img src="https://img.shields.io/badge/RF_Routing-9333EA?style=for-the-badge">
   <img src="https://img.shields.io/badge/Power_Integrity-EA580C?style=for-the-badge">
   <img src="https://img.shields.io/badge/Isolation-DC2626?style=for-the-badge">
