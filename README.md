@@ -308,5 +308,90 @@ The goal was not simply to connect every component.
 The goal was to make the board **electrically reliable, physically organized and ready to manufacture**.
 
 ---
+---
+
+## Technologies & Tools
+
+<p align="center">
+  <b>Hardware & Processing</b>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/STM32-03234B?style=for-the-badge&logo=stmicroelectronics&logoColor=white">
+  <img src="https://img.shields.io/badge/ARM_Cortex--M-0091BD?style=for-the-badge&logo=arm&logoColor=white">
+  <img src="https://img.shields.io/badge/EEPROM-334155?style=for-the-badge">
+</p>
+
+
+<p align="center">
+  <b>Industrial & Remote Communication</b>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/RS--485-0891B2?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Modbus_RTU-0E7490?style=for-the-badge">
+  <img src="https://img.shields.io/badge/LTE_Cat--1-7C3AED?style=for-the-badge">
+  <img src="https://img.shields.io/badge/GNSS-6D28D9?style=for-the-badge">
+  <img src="https://img.shields.io/badge/USB-2563EB?style=for-the-badge&logo=usb&logoColor=white">
+</p>
+
+<p align="center">
+  <b>Simulation & Development</b>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/LTspice-B91C1C?style=for-the-badge">
+  <img src="https://img.shields.io/badge/HyperLynx-2563EB?style=for-the-badge">
+  <img src="https://img.shields.io/badge/STM32CubeMX-03234B?style=for-the-badge&logo=stmicroelectronics&logoColor=white">
+  <img src="https://img.shields.io/badge/STM32CubeIDE-0F4C81?style=for-the-badge&logo=stmicroelectronics&logoColor=white">
+</p>
+
+<p align="center">
+  <b>PCB & Hardware Design</b>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Altium_Designer-A5915F?style=for-the-badge&logo=altiumdesigner&logoColor=white">
+  <img src="https://img.shields.io/badge/4--Layer_PCB-166534?style=for-the-badge">
+  <img src="https://img.shields.io/badge/RF_Routing-9333EA?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Power_Integrity-EA580C?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Isolation-DC2626?style=for-the-badge">
+</p>
+
+<p align="center">
+  <b>Engineering Workflow</b>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/System_Architecture-0284C7?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Schematic_Design-4F46E5?style=for-the-badge">
+  <img src="https://img.shields.io/badge/PCB_Layout-059669?style=for-the-badge">
+  <img src="https://img.shields.io/badge/DRC-F59E0B?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Hardware_Validation-B91C1C?style=for-the-badge">
+</p>
+
+---
+
+---
+
+## What Is Intentionally Not Included
+
+This repository is meant to present the **project process, architecture and design decisions** behind the project.
+
+Some production material is intentionally not published.
+
+| Not Included | Reason |
+|---|---|
+| **Complete Schematics** | Production design details are kept private |
+| **Gerber Files** | Manufacturing files are not part of the public repository |
+| **Complete BOM** | Component sourcing and production details are excluded |
+| **Production Firmware** | Only sanitized examples may be shared in the future |
+| **Internal Configuration Data** | Project specific configuration is kept private |
+
+<br>
+
+> **The goal of this repository is to share the engineering journey without exposing production-sensitive material.**
+
+---
 
 
