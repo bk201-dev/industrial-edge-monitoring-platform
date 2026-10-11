@@ -416,3 +416,35 @@ flowchart LR
 > **Local storage gives the system a memory even when the network is unavailable.**
 
 ---
+<br>
+
+<h3 align="center">EEPROM Read / Write References</h3>
+
+<p align="center">
+  <sub>
+    Reference transactions used to understand page-oriented storage and sequential data access.
+  </sub>
+</p>
+
+<br>
+
+<table>
+<tr>
+<td align="center" width="50%">
+<b>64-Byte Page Write</b><br><br>
+<img src="../media/documentation/eeprom-page-write.png" width="95%"><br><br>
+<sub>Page-write sequence used to store multiple bytes in a single EEPROM write operation.</sub>
+</td>
+<td align="center" width="50%">
+<b>Sequential Read</b><br><br>
+<img src="../media/documentation/eeprom-sequential-read.png" width="95%"><br><br>
+<sub>Sequential access allows consecutive memory locations to be read efficiently.</sub>
+</td>
+</tr>
+</table>
+
+<br>
+
+<p align="center">
+  <sub><i>Source: Microchip — 24AA256 / 24LC256 / 24FC256 Datasheet.</i></sub>
+</p>
