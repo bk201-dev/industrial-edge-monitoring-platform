@@ -267,7 +267,7 @@ The design was implemented as a **4-layer PCB**, with the placement and routing 
   </tr>
 </table>
 <p align="center">
-  <img src="media/pcb-3d/edgeguard-3d.png" width="70%">
+  <img src="media/pcb-3d/edgeguard-3d.png" width="55%">
   <br>
   <b>3D Assembly View</b>
 </p>
