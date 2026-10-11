@@ -374,3 +374,45 @@ A Schmitt-trigger buffer was used to provide clean logic transitions before the 
 <p align="center">
   <sub><i>Source: Texas Instruments — SN74LVC1T45 Datasheet.</i></sub>
 </p>
+
+---
+
+## Local Storage & EEPROM
+
+Local non-volatile memory was included so that important information could remain available even when communication with the remote platform was temporarily unavailable.
+
+The STM32 can use the EEPROM to store information such as system parameters, events or diagnostic data.
+
+```mermaid
+flowchart LR
+
+    MCU["STM32<br/>CONTROL CORE"]:::mcu
+    EEPROM["NON-VOLATILE<br/>EEPROM"]:::mem
+    CONFIG["SYSTEM<br/>PARAMETERS"]:::data
+    EVENTS["EVENT / FAULT<br/>RECORDS"]:::fault
+    REMOTE["REMOTE<br/>COMMUNICATION"]:::cloud
+
+    CONFIG --> MCU
+    MCU <--> EEPROM
+    EVENTS --> EEPROM
+    MCU <--> REMOTE
+
+    classDef mcu fill:#172554,stroke:#60A5FA,color:#FFFFFF,stroke-width:3px;
+    classDef mem fill:#052E16,stroke:#4ADE80,color:#FFFFFF,stroke-width:3px;
+    classDef data fill:#083344,stroke:#22D3EE,color:#FFFFFF,stroke-width:2px;
+    classDef fault fill:#450A0A,stroke:#FB7185,color:#FFFFFF,stroke-width:2px;
+    classDef cloud fill:#2E1065,stroke:#C084FC,color:#FFFFFF,stroke-width:2px;
+```
+
+### Design Considerations
+
+- Non-volatile storage for information that must survive a power cycle
+- Communication between the STM32 and external memory
+- Controlled read and write operations
+- Avoiding unnecessary memory writes
+- Keeping local information available during communication loss
+- Possibility of storing configuration and diagnostic information
+
+> **Local storage gives the system a memory even when the network is unavailable.**
+
+---
