@@ -20,6 +20,8 @@ The system is built around an **STM32-based core** and combines:
 - USB and diagnostic interfaces
 - Dedicated power and protection circuits
 
+<div align="center">
+
 <br>
 
 <img src="media/pcb-3d/edgeguard-hero.png" width="70%">
