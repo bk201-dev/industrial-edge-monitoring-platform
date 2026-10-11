@@ -252,9 +252,20 @@ This is where the system architecture became a physical board.
 
 The design was implemented as a **4-layer PCB**, with the placement and routing organized around power, communication, isolation, RF and mechanical constraints.
 
-<p align="center">
-  <img src="media/pcb-3d/edgeguard-render.png" width="88%">
-</p>
+<table>
+  <tr>
+    <td align="center">
+      <img src="media/pcb-3d/top-layer.png" width="100%">
+      <br>
+      <b>Top Layer</b>
+    </td>
+    <td align="center">
+      <img src="media/pcb-3d/bottom-layer.png" width="100%">
+      <br>
+      <b>Bottom Layer</b>
+    </td>
+  </tr>
+</table>
 
 ### Design Focus
 
