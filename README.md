@@ -390,7 +390,7 @@ Some production material is intentionally not published.
 
 <br>
 
-> **The goal of this repository is to share the engineering journey without exposing production-sensitive material.**
+> **The goal of this repository is to share the engineering journey without exposing sensitive production material.**
 
 ---
 
