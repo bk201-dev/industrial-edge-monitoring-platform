@@ -2,31 +2,9 @@
   <img src="media/banner/edgeguard-banner.png" width="100%" alt="EdgeGuard Industrial Edge Monitoring Platform">
 </p>
 
-<h1 align="center">EDGEGUARD</h1>
-
-<h3 align="center">Industrial Edge Monitoring Platform</h3>
-
-<p align="center">
-  From system architecture and embedded hardware to multilayer PCB design and real manufacturing.
-</p>
-<div align="center">
-
-# EDGEGUARD
-
-### Industrial Edge Monitoring Platform
-
-**From field information to industrial supervision and remote connectivity —  
-through embedded hardware, communication, multilayer PCB design, and real manufacturing.**
-
-<br>
-
-<img src="media/pcb-3d/edgeguard-hero.png" width="100%">
-
-</div>
-
 ---
 
-## Overview
+# Overview
 
 EdgeGuard was developed during my PFA internship as an embedded monitoring and communication platform for transformer cabinets.
 
@@ -42,7 +20,11 @@ The system is built around an **STM32-based core** and combines:
 - USB and diagnostic interfaces
 - Dedicated power and protection circuits
 
-The project went from the first system requirements to a complete multilayer PCB and finally to a real manufactured board.
+<br>
+
+<img src="media/pcb-3d/edgeguard-hero.png" width="70%">
+
+</div>
 
 ---
 
