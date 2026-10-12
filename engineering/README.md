@@ -85,35 +85,51 @@ Instead of treating power as a single rail, the design was organized around seve
 The cellular section also required special attention because of its short high-current peaks during network activity.
 
 ```mermaid
-flowchart LR
+flowchart TB
 
-    INPUT["POWER<br/>INPUT"]:::input
-    PROT["INPUT<br/>PROTECTION"]:::protect
-    PWR["POWER<br/>DISTRIBUTION"]:::main
+    INPUT(["POWER INPUT"]):::input
+    PROTECT{{"INPUT<br/>PROTECTION"}}:::protect
+    HUB(("POWER<br/>DISTRIBUTION")):::hub
 
-    V5["5 V<br/>DOMAIN"]:::v5
-    V33["3.3 V<br/>DOMAIN"]:::v33
-    V18["1.8 V<br/>DOMAIN"]:::v18
-    ISO["5 V ISO<br/>ISOLATED DOMAIN"]:::iso
-    LTE["CELLULAR<br/>POWER PATH"]:::lte
+    INPUT --> PROTECT
+    PROTECT --> HUB
 
-    INPUT --> PROT --> PWR
+    subgraph RAILS["POWER DOMAINS"]
+        direction LR
 
-    PWR --> V5
-    V5 --> V33
-    V5 --> V18
-    V5 --> ISO
-    PWR --> LTE
+        V5["5 V<br/>MAIN DOMAIN"]:::v5
+        V33["3.3 V<br/>LOGIC DOMAIN"]:::v33
+        V18["1.8 V<br/>LOGIC DOMAIN"]:::v18
+        ISO["5 V ISO<br/>ISOLATED DOMAIN"]:::iso
+    end
 
-    classDef input fill:#111827,stroke:#38BDF8,color:#FFFFFF,stroke-width:2px;
-    classDef protect fill:#450A0A,stroke:#FB7185,color:#FFFFFF,stroke-width:2px;
-    classDef main fill:#431407,stroke:#FB923C,color:#FFFFFF,stroke-width:3px;
+    CELL(["CELLULAR<br/>POWER PATH"]):::cell
+
+    HUB --> V5
+    HUB --> V33
+    HUB --> V18
+    HUB --> ISO
+    HUB --> CELL
+
+    V33 -->|"STM32 + logic"| MCU["DIGITAL<br/>CONTROL"]:::load
+    V18 -->|"LTE interface"| MODEM["MODEM<br/>LOGIC"]:::load
+    ISO -->|"isolated side"| RS["RS-485<br/>FIELD SIDE"]:::load
+    CELL -->|"high-current path"| LTE["LTE<br/>MODEM"]:::lte
+
+    classDef input fill:#082F49,stroke:#38BDF8,color:#FFFFFF,stroke-width:3px;
+    classDef protect fill:#450A0A,stroke:#FB7185,color:#FFFFFF,stroke-width:3px;
+    classDef hub fill:#431407,stroke:#FB923C,color:#FFFFFF,stroke-width:4px;
 
     classDef v5 fill:#422006,stroke:#FACC15,color:#FFFFFF,stroke-width:2px;
     classDef v33 fill:#172554,stroke:#60A5FA,color:#FFFFFF,stroke-width:2px;
     classDef v18 fill:#2E1065,stroke:#C084FC,color:#FFFFFF,stroke-width:2px;
     classDef iso fill:#083344,stroke:#22D3EE,color:#FFFFFF,stroke-width:2px;
-    classDef lte fill:#052E16,stroke:#4ADE80,color:#FFFFFF,stroke-width:2px;
+
+    classDef cell fill:#052E16,stroke:#4ADE80,color:#FFFFFF,stroke-width:3px;
+    classDef load fill:#111827,stroke:#64748B,color:#FFFFFF,stroke-width:1px;
+    classDef lte fill:#14532D,stroke:#4ADE80,color:#FFFFFF,stroke-width:2px;
+
+    style RAILS fill:#0D1117,stroke:#334155,stroke-width:1px
 ```
 
 The main design points were:
