@@ -448,5 +448,104 @@ flowchart LR
 <p align="center">
   <sub><i>Source: Microchip — 24AA256 / 24LC256 / 24FC256 Datasheet.</i></sub>
 </p>
+---
 
+## Signal Integrity & Controlled Impedance
+
+HyperLynx was used to reproduce the physical PCB stackup and study the electromagnetic behavior of critical communication traces.
+
+The objective was not only to calculate impedance values, but also to visualize how trace geometry, reference planes and spacing influence field distribution and coupling.
+
+### PCB Stackup Model
+
+The physical **JLC04161H-3313** stackup used in the PCB design was reproduced in HyperLynx.
+
+The model included:
+
+- **4 copper layers**
+- **35 µm** outer copper
+- **15.2 µm** inner copper
+- **99.4 µm** prepreg between TOP and GND
+- **1.265 mm** FR-4 core
+- **L2 GND** as the primary reference plane for top layer controlled impedance traces
+- Total modeled thickness of approximately **1.584 mm**
+
+<p align="center">
+  <img src="../media/documentation/hyperlynx-stackup-jlc04161h-3313.png" width="55%">
+  <br><br>
+  <b>JLC04161H-3313 Stackup Model</b>
+  <br>
+  <sub>Physical 4-layer PCB construction reproduced in HyperLynx.</sub>
+</p>
+
+---
+
+### 50 Ω Trace Coupling Analysis
+
+The 50 Ω top layer traces were evaluated using their real controlled impedance geometry.
+
+The main trace parameters were:
+
+- Trace width: **169.63 µm**
+- Reference plane: **L2 GND**
+- TOP-to-GND dielectric thickness: **99.4 µm**
+- Dielectric constant: approximately **4.1**
+- Actual trace separation: **6 mm**
+
+The field solver shows that, with the real 6 mm spacing, most of the electromagnetic field remains concentrated around each trace and its nearby ground reference.
+
+<p align="center">
+  <img src="../media/documentation/hyperlynx-field-coupling-6mm.png" width="55%">
+  <br><br>
+  <b>Field Distribution — 6 mm Trace Spacing</b>
+  <br>
+  <sub>Field solver visualization of the controlled-impedance traces using the actual PCB spacing.</sub>
+</p>
+
+To understand the influence of spacing, the same geometry was also evaluated with a reduced separation between the traces.
+
+<p align="center">
+  <img src="../media/documentation/hyperlynx-field-coupling-reduced-spacing.png" width="55%">
+  <br><br>
+  <b>Field Distribution — Reduced Trace Spacing</b>
+  <br>
+  <sub>Comparison case showing stronger electromagnetic interaction when the traces are brought closer together.</sub>
+</p>
+
+The comparison illustrates an important routing principle:
+
+> **Increasing the separation between adjacent controlled-impedance traces reduces electromagnetic interaction and helps limit crosstalk.**
+
+---
+
+### RS485 Differential Impedance Validation
+
+The RS485 A/B pair was also reproduced using its actual routing geometry.
+
+The simulated differential pair used:
+
+- Trace width: **66.82 µm**
+- Trace gap: **127 µm**
+- Coupled length: approximately **27 mm**
+- Routing layer: **TOP**
+- Reference plane: **L2 GND**
+- Target differential impedance: **120 Ω**
+
+Altium calculated approximately **119.95 Ω**, while the HyperLynx field solver produced approximately **117.3 Ω**.
+
+This corresponds to only about **2.25% deviation** from the 120 Ω target.
+
+<p align="center">
+  <img src="../media/documentation/hyperlynx-rs485-differential-field.png" width="55%">
+  <br><br>
+  <b>RS-485 Differential Field Distribution</b>
+  <br>
+  <sub>Electromagnetic field distribution of the A/B pair referenced to the L2 ground plane.</sub>
+</p>
+
+Unlike the widely separated 50 Ω traces, electromagnetic interaction between the RS485 conductors is intentional and contributes to the differential behavior of the pair.
+
+> **The simulation confirmed that the implemented RS485 geometry remained close to the 120 Ω differential impedance target.**
+
+---
 
