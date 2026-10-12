@@ -142,9 +142,6 @@ flowchart LR
 ---
 
 ## LTE Cat-1 Integration
-
-Adding cellular connectivity affected much more than communication.
-
 The LTE modem introduced its own power behavior, logic voltage domain, SIM interface and RF path.  
 Integrating these correctly was therefore a combination of **digital interfacing, power integrity and RF design**.
 
