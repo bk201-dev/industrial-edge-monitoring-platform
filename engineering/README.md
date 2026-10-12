@@ -176,8 +176,6 @@ flowchart LR
 
 ### Power Became Part of the Communication Design
 
-The modem supply could not be treated like an ordinary digital rail.
-
 The EC200U operates around **3.8 V** and its supply must remain stable while the modem changes operating state and transmits over the cellular network.  
 This influenced the power path width and the physical position of the modem power network.
 
