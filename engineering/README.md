@@ -6,7 +6,7 @@ The goal is not to reproduce the complete production design, but to explain the 
 
 ---
 
-## System Design Philosophy
+## System Design Outlook
 
 EdgeGuard combines several electrical environments on the same board:
 
