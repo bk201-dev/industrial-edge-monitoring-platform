@@ -412,25 +412,47 @@ The input stage therefore conditions and protects the signal before it reaches t
 ```mermaid
 flowchart LR
 
-    FIELD["FIELD<br/>RELAY SIGNAL"]:::field
-    PROT["INPUT<br/>PROTECTION"]:::protect
-    FILTER["FILTERING &<br/>POLARIZATION"]:::filter
-    BUFFER["SCHMITT<br/>BUFFER"]:::buffer
-    MCU["STM32<br/>DIGITAL INPUT"]:::mcu
-    LOGIC["FAULT / STATE<br/>PROCESSING"]:::logic
+    subgraph FIELD["FIELD SIDE"]
+        direction TB
+        RELAY(("RELAY /<br/>FAULT SIGNAL")):::field
+        NOISE["External Noise<br/>& Transients"]:::noise
+        NOISE -.-> RELAY
+    end
 
-    FIELD --> PROT
-    PROT --> FILTER
-    FILTER --> BUFFER
-    BUFFER --> MCU
-    MCU --> LOGIC
+    subgraph FRONTEND["SIGNAL CONDITIONING FRONT-END"]
+        direction TB
+        PROTECT{{"INPUT<br/>PROTECTION"}}:::protect
+        FILTER["FILTERING<br/>& BIASING"]:::filter
+        CLEAN(["SCHMITT<br/>CLEAN-UP"]):::buffer
 
-    classDef field fill:#450A0A,stroke:#FB7185,color:#FFFFFF,stroke-width:2px;
-    classDef protect fill:#431407,stroke:#FB923C,color:#FFFFFF,stroke-width:2px;
+        PROTECT --> FILTER
+        FILTER --> CLEAN
+    end
+
+    subgraph DIGITAL["DIGITAL DOMAIN"]
+        direction TB
+        GPIO["STM32<br/>GPIO INPUT"]:::mcu
+        STATE(("FAULT / STATE<br/>DECISION")):::state
+
+        GPIO --> STATE
+    end
+
+    RELAY ==>|"field signal"| PROTECT
+    CLEAN ==>|"clean logic"| GPIO
+
+    classDef field fill:#450A0A,stroke:#FB7185,color:#FFFFFF,stroke-width:3px;
+    classDef noise fill:#1F2937,stroke:#94A3B8,color:#FFFFFF,stroke-width:1px,stroke-dasharray:5 5;
+
+    classDef protect fill:#431407,stroke:#FB923C,color:#FFFFFF,stroke-width:3px;
     classDef filter fill:#422006,stroke:#FACC15,color:#FFFFFF,stroke-width:2px;
-    classDef buffer fill:#083344,stroke:#22D3EE,color:#FFFFFF,stroke-width:2px;
+    classDef buffer fill:#083344,stroke:#22D3EE,color:#FFFFFF,stroke-width:3px;
+
     classDef mcu fill:#172554,stroke:#60A5FA,color:#FFFFFF,stroke-width:3px;
-    classDef logic fill:#052E16,stroke:#4ADE80,color:#FFFFFF,stroke-width:2px;
+    classDef state fill:#052E16,stroke:#4ADE80,color:#FFFFFF,stroke-width:3px;
+
+    style FIELD fill:#0D1117,stroke:#FB7185,stroke-width:1px
+    style FRONTEND fill:#0D1117,stroke:#FACC15,stroke-width:1px
+    style DIGITAL fill:#0D1117,stroke:#60A5FA,stroke-width:1px
 ```
 
 ### Design Considerations
