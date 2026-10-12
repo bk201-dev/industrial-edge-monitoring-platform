@@ -73,26 +73,79 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-    A["Requirements"] --> B["System Architecture"]
-    B --> C["Component Selection"]
-    C --> D["Schematic Design"]
-    D --> E["Power & Isolation Strategy"]
-    E --> F["PCB Placement"]
-    F --> G["Routing"]
-    G --> H["Electrical & Mechanical Checks"]
-    H --> I["Manufacturing"]
 
-    classDef input fill:#0B2533,stroke:#38BDF8,color:#FFFFFF,stroke-width:2px;
-    classDef design fill:#172554,stroke:#818CF8,color:#FFFFFF,stroke-width:2px;
-    classDef pcb fill:#18392B,stroke:#34D399,color:#FFFFFF,stroke-width:2px;
-    classDef verify fill:#422006,stroke:#FBBF24,color:#FFFFFF,stroke-width:2px;
-    classDef final fill:#3F1722,stroke:#FB7185,color:#FFFFFF,stroke-width:3px;
+    REQ["REQUIREMENTS<br/>Functional & Technical Needs"]:::start
+    ARCH["SYSTEM ARCHITECTURE<br/>Interfaces · Power · Communication"]:::arch
+    COMP["COMPONENT SELECTION<br/>MCU · LTE · RS-485 · Memory · Protection"]:::arch
 
-    class A input;
-    class B,C,D,E design;
-    class F,G pcb;
-    class H verify;
-    class I final;
+    REQ --> ARCH
+    ARCH --> COMP
+
+    COMP --> HW
+    COMP --> FW
+
+    subgraph HARDWARE["HARDWARE DEVELOPMENT"]
+        direction TB
+
+        HW["SCHEMATIC DESIGN"]:::hardware
+        PWR["POWER & ISOLATION<br/>ARCHITECTURE"]:::hardware
+        SIM["CIRCUIT SIMULATION<br/>LTspice"]:::simulation
+        PLACE["PCB PLACEMENT"]:::pcb
+        ROUTE["4-LAYER PCB ROUTING"]:::pcb
+        SI["SIGNAL & IMPEDANCE<br/>VALIDATION · HyperLynx"]:::simulation
+        CHECK["DRC · ELECTRICAL<br/>& MECHANICAL CHECKS"]:::check
+        MFG["MANUFACTURING<br/>FILES"]:::manufacturing
+
+        HW --> PWR
+        PWR --> SIM
+        SIM --> PLACE
+        PLACE --> ROUTE
+        ROUTE --> SI
+        SI --> CHECK
+        CHECK --> MFG
+    end
+
+    subgraph FIRMWARE["EMBEDDED SOFTWARE"]
+        direction TB
+
+        FW["MCU CONFIGURATION<br/>STM32CubeMX"]:::firmware
+        DRV["LOW-LEVEL DRIVERS<br/>UART · ADC · I²C · GPIO"]:::firmware
+        COMM["COMMUNICATION<br/>Modbus · LTE AT Commands"]:::firmware
+        LOGIC["MONITORING &<br/>FAULT LOGIC"]:::firmware
+
+        FW --> DRV
+        DRV --> COMM
+        COMM --> LOGIC
+    end
+
+    MFG --> PROTO["PROTOTYPE<br/>ASSEMBLY"]:::prototype
+    LOGIC --> BRINGUP
+    PROTO --> BRINGUP
+
+    BRINGUP["HARDWARE / FIRMWARE<br/>BRING-UP & DEBUG"]:::debug
+
+    BRINGUP --> TEST["SYSTEM VALIDATION<br/>Communication · Monitoring · Reliability"]:::validation
+    TEST --> FINAL["ENGINEERING<br/>DOCUMENTATION"]:::final
+
+    classDef start fill:#082F49,stroke:#38BDF8,color:#FFFFFF,stroke-width:3px;
+    classDef arch fill:#172554,stroke:#818CF8,color:#FFFFFF,stroke-width:2px;
+
+    classDef hardware fill:#431407,stroke:#FB923C,color:#FFFFFF,stroke-width:2px;
+    classDef simulation fill:#422006,stroke:#FACC15,color:#FFFFFF,stroke-width:2px;
+
+    classDef pcb fill:#052E16,stroke:#4ADE80,color:#FFFFFF,stroke-width:2px;
+    classDef check fill:#450A0A,stroke:#FB7185,color:#FFFFFF,stroke-width:2px;
+
+    classDef firmware fill:#2E1065,stroke:#C084FC,color:#FFFFFF,stroke-width:2px;
+
+    classDef manufacturing fill:#3F1722,stroke:#FB7185,color:#FFFFFF,stroke-width:3px;
+    classDef prototype fill:#083344,stroke:#22D3EE,color:#FFFFFF,stroke-width:3px;
+    classDef debug fill:#4C1D95,stroke:#D8B4FE,color:#FFFFFF,stroke-width:3px;
+    classDef validation fill:#14532D,stroke:#4ADE80,color:#FFFFFF,stroke-width:3px;
+    classDef final fill:#172554,stroke:#60A5FA,color:#FFFFFF,stroke-width:3px;
+
+    style HARDWARE fill:#0D1117,stroke:#FB923C,stroke-width:1px
+    style FIRMWARE fill:#0D1117,stroke:#C084FC,stroke-width:1px
 ```
 
 Every stage influenced the next one.
