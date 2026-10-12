@@ -6,7 +6,7 @@
 
 # Overview
 
-EdgeGuard was developed during my PFA internship as an embedded monitoring and communication platform for transformer cabinets.
+EdgeGuard was developed during my PFA internship as an industrial electrical fault monitoring and remote supervision unit for power distribution systems.
 
 The objective was to bring several functions together on a single industrial electronic board: local processing, field communication, remote connectivity, monitoring, data storage, and diagnostics.
 
