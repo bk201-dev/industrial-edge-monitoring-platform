@@ -448,7 +448,7 @@ flowchart LR
 <p align="center">
   <sub><i>Source: Microchip — 24AA256 / 24LC256 / 24FC256 Datasheet.</i></sub>
 </p>
----
+
 
 ## Signal Integrity & Controlled Impedance
 
@@ -547,5 +547,5 @@ Unlike the widely separated 50 Ω traces, electromagnetic interaction between th
 
 > **The simulation confirmed that the implemented RS485 geometry remained close to the 120 Ω differential impedance target.**
 
----
+
 
