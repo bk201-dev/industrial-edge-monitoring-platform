@@ -338,7 +338,7 @@ flowchart LR
 <td align="center" width="50%">
 <b>4-Layer RF Routing Reference</b><br><br>
 <img src="../media/documentation/rf-4layer-cpw-reference.png" width="95%"><br><br>
-<sub>Coplanar-waveguide geometry used as a reference for controlled-impedance RF routing.</sub>
+<sub>Coplanar waveguide geometry used as a reference for controlled-impedance RF routing.</sub>
 </td>
 </tr>
 </table>
@@ -358,7 +358,7 @@ flowchart LR
 <br>
 
 <p align="center">
-  <sub><i>Source: Quectel Hardware Design documentation.</i></sub>
+  <sub><i>Source: LTE Hardware Design documentation.</i></sub>
 </p>
 
 ---
