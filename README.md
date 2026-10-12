@@ -151,11 +151,6 @@ The board brings together several different electrical environments:
 - **Power** — supplies sections with very different electrical requirements.
 - **Debug interfaces** — support programming, testing and diagnostics.
 
-The real challenge was not adding these functions individually, but making all of them work reliably together on the same board.
-
----
-
----
 
 ## Decisions That Shaped the Board
 
