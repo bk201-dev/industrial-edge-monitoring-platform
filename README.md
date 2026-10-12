@@ -205,7 +205,7 @@ The board brings together several different electrical environments:
 - **Debug interfaces** — support programming, testing and diagnostics.
 
 
-## Decisions That Shaped the Board
+## Shaping the Board
 
 The final PCB was shaped by a few key engineering decisions. Each one solved a different constraint of the system.
 
