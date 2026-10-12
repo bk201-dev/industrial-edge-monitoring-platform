@@ -30,7 +30,7 @@ The system is built around an **STM32-based core** and combines:
 
 > **Looking for technical details?**  
 > This README provides a high-level overview of EdgeGuard.  
-> For deeper hardware decisions, interface design, simulations and validation results, explore the **[Engineering Design Notes](engineering/README.md)**.
+> For a closer look at some of the technical choices and validation work behind the board, see the **[Engineering Design Notes](engineering/README.md)**.
 
 ---
 
