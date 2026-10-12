@@ -18,30 +18,53 @@ EdgeGuard combines several electrical environments on the same board:
 - Power conversion
 
 ```mermaid
-flowchart TB
+flowchart LR
 
-    CORE["STM32<br/>CONTROL CORE"]:::core
+    subgraph FIELD["INDUSTRIAL SIDE"]
+        direction TB
+        FAULT["Fault & Relay<br/>Monitoring"]:::fault
+        RS485["Isolated<br/>RS-485 / Modbus"]:::rs
+    end
 
-    POWER["POWER<br/>ARCHITECTURE"]:::power
-    RS485["ISOLATED<br/>RS-485"]:::comm
-    LTE["LTE CAT-1<br/>MODEM"]:::rf
-    GNSS["GNSS"]:::rf
-    STORE["LOCAL<br/>STORAGE"]:::memory
-    MON["FAULT<br/>Circuitry "]:::monitor
+    subgraph CORE["PROCESSING"]
+        direction TB
+        MCU["STM32F407<br/><b>CONTROL CORE</b>"]:::mcu
+    end
 
-    POWER --> CORE
-    RS485 <--> CORE
-    LTE <--> CORE
-    GNSS --> CORE
-    STORE <--> CORE
-    MON --> CORE
+    subgraph CONNECT["REMOTE CONNECTIVITY"]
+        direction TB
+        LTE["LTE CAT-1<br/>Cellular Link"]:::lte
+        GNSS["GNSS<br/>Positioning"]:::gnss
+    end
 
-    classDef core fill:#172554,stroke:#818CF8,color:#FFFFFF,stroke-width:3px;
+    subgraph SUPPORT["LOCAL RESOURCES"]
+        direction TB
+        MEMORY["EEPROM<br/>Local Storage"]:::mem
+        POWER["Power<br/>Architecture"]:::power
+    end
+
+    FAULT -->|"states"| MCU
+    RS485 <-->|"Modbus"| MCU
+
+    MCU <--> LTE
+    GNSS --> MCU
+
+    MCU <--> MEMORY
+    POWER --> MCU
+    POWER --> LTE
+
+    classDef mcu fill:#172554,stroke:#818CF8,color:#FFFFFF,stroke-width:4px;
+    classDef rs fill:#083344,stroke:#22D3EE,color:#FFFFFF,stroke-width:2px;
+    classDef fault fill:#450A0A,stroke:#FB7185,color:#FFFFFF,stroke-width:2px;
+    classDef lte fill:#2E1065,stroke:#C084FC,color:#FFFFFF,stroke-width:2px;
+    classDef gnss fill:#3B0764,stroke:#D8B4FE,color:#FFFFFF,stroke-width:2px;
+    classDef mem fill:#052E16,stroke:#4ADE80,color:#FFFFFF,stroke-width:2px;
     classDef power fill:#431407,stroke:#FB923C,color:#FFFFFF,stroke-width:2px;
-    classDef comm fill:#083344,stroke:#22D3EE,color:#FFFFFF,stroke-width:2px;
-    classDef rf fill:#2E1065,stroke:#C084FC,color:#FFFFFF,stroke-width:2px;
-    classDef memory fill:#052E16,stroke:#4ADE80,color:#FFFFFF,stroke-width:2px;
-    classDef monitor fill:#450A0A,stroke:#FB7185,color:#FFFFFF,stroke-width:2px;
+
+    style FIELD fill:#101820,stroke:#FB7185,stroke-width:1px
+    style CORE fill:#111827,stroke:#818CF8,stroke-width:2px
+    style CONNECT fill:#111827,stroke:#C084FC,stroke-width:1px
+    style SUPPORT fill:#111827,stroke:#4ADE80,stroke-width:1px
 ```
 
 ---
