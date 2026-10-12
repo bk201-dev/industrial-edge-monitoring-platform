@@ -145,7 +145,7 @@ flowchart LR
 
 Adding cellular connectivity affected much more than communication.
 
-The LTE modem introduced its own power behavior, logic-voltage domain, SIM interface and RF path.  
+The LTE modem introduced its own power behavior, logic voltage domain, SIM interface and RF path.  
 Integrating these correctly was therefore a combination of **digital interfacing, power integrity and RF design**.
 
 ```mermaid
@@ -182,15 +182,15 @@ flowchart LR
 The modem supply could not be treated like an ordinary digital rail.
 
 The EC200U operates around **3.8 V** and its supply must remain stable while the modem changes operating state and transmits over the cellular network.  
-This influenced the power-path width, capacitor placement and the physical position of the modem power network.
+This influenced the power path width and the physical position of the modem power network.
 
 <p align="center">
-  <img src="../media/documentation/lte-power-star-routing.png" width="68%">
+  <img src="../media/documentation/lte-power-star-routing.png" width="50%">
   <br><br>
   <b>Cellular Modem Power Reference</b>
   <br>
   <sub>
-    Quectel reference topology showing local energy storage, high-frequency
+    LTE reference topology showing local energy storage, high-frequency
     decoupling and separate VBAT_RF / VBAT_BB paths.
   </sub>
 </p>
@@ -208,7 +208,7 @@ The STM32 operates in a **3.3 V logic environment**, while the EC200U UART belon
 Instead of connecting both devices directly, a dedicated level-translation stage was placed between the controller and modem.
 
 <p align="center">
-  <img src="../media/documentation/lte-uart-level-shifting.png" width="68%">
+  <img src="../media/documentation/lte-uart-level-shifting.png" width="50%">
   <br><br>
   <b>UART Level-Translation Reference</b>
   <br>
@@ -226,10 +226,10 @@ This interface provides the communication path used for **AT commands, modem con
 
 The cellular link also depends on a reliable USIM interface.
 
-The SIM signals were therefore treated as an external interface rather than ordinary GPIO, with attention to local filtering, protection and routing between the modem and SIM holder.
+The SIM signals were therefore treated as an external interface with attention to local filtering, protection and routing between the modem and SIM holder.
 
 <p align="center">
-  <img src="../media/documentation/lte-usim-interface.png" width="68%">
+  <img src="../media/documentation/lte-usim-interface.png" width="50%">
   <br><br>
   <b>USIM Interface Reference</b>
   <br>
@@ -245,8 +245,6 @@ The EC200U supports both **1.8 V and 3.0 V USIM operation**, allowing the modem 
 
 ### The Last Centimeters Became RF Design
 
-After the digital information reaches the modem, the final path to the network is no longer an ordinary PCB signal.
-
 The EC200U main antenna interface is specified for **50 Ω characteristic impedance**, so the antenna connection was treated as a controlled-impedance RF path.
 
 <p align="center">
@@ -255,19 +253,18 @@ The EC200U main antenna interface is specified for **50 Ω characteristic impeda
   <b>Main Antenna Matching Reference</b>
   <br>
   <sub>
-    Quectel reference showing the reserved π-matching network between
+    LTE reference showing the reserved π-matching network between
     ANT_MAIN and the external antenna connection.
   </sub>
 </p>
 
 This influenced trace geometry, ground continuity, component placement and the distance between the modem and antenna connection.
 
-> **Cellular connectivity was not one component added to the board — it became a small subsystem combining power, logic translation, SIM access and RF design.**
 
 <br>
 
 <p align="center">
-  <sub><i>Reference: Quectel EC200U Series Hardware Design and Reference Design documentation.</i></sub>
+  <sub><i>Reference: LTE Series Hardware Design and Reference Design documentation.</i></sub>
 </p>
 
 ---
