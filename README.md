@@ -16,7 +16,7 @@ The system is built around an **STM32-based core** and combines:
 - **LTE Cat-1** cellular connectivity
 - **GNSS** capability
 - Local data storage
-- Fault and relay-state monitoring
+- Fault and relay state monitoring
 - USB and diagnostic interfaces
 - Dedicated power and protection circuits
 
