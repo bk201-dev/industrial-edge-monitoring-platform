@@ -139,63 +139,137 @@ flowchart LR
 
 ---
 
-## LTE Cat-1 & RF Integration
+---
 
-The cellular section gives EdgeGuard remote connectivity through an **LTE Cat-1 modem**.
+## LTE Cat-1 Integration
 
-Compared with the MCU and low-power logic, the modem introduced two important challenges:
+Adding cellular connectivity affected much more than communication.
 
-- High transient current demand
-- RF routing and antenna integration
+The LTE modem introduced its own power behavior, logic-voltage domain, SIM interface and RF path.  
+Integrating these correctly was therefore a combination of **digital interfacing, power integrity and RF design**.
 
 ```mermaid
 flowchart LR
 
     MCU["STM32<br/>CONTROL CORE"]:::mcu
-    MODEM["LTE CAT-1<br/>MODEM"]:::lte
-    SIM["SIM / USIM<br/>INTERFACE"]:::sim
-    ANT["LTE<br/>ANTENNA"]:::rf
-    CLOUD["REMOTE<br/>PLATFORM"]:::cloud
-    PWR["DEDICATED<br/>POWER PATH"]:::power
+    SHIFT{{"3.3 V ↔ 1.8 V<br/>LEVEL DOMAIN"}}:::shift
+    LTE(["EC200U<br/>LTE CAT-1"]):::lte
+    RF(["50 Ω<br/>RF PATH"]):::rf
+    NET(("CELLULAR<br/>NETWORK")):::network
 
-    MCU <--> MODEM
-    SIM --> MODEM
-    PWR --> MODEM
-    MODEM --> ANT
-    ANT <--> CLOUD
+    PWR[("3.8 V<br/>POWER")]:::power
+    SIM[("USIM<br/>IDENTITY")]:::sim
+
+    MCU -->|"UART / AT"| SHIFT
+    SHIFT --> LTE
+    LTE --> RF
+    RF --> NET
+
+    PWR -->|"energy"| LTE
+    SIM -->|"network access"| LTE
 
     classDef mcu fill:#172554,stroke:#60A5FA,color:#FFFFFF,stroke-width:2px;
-    classDef lte fill:#2E1065,stroke:#C084FC,color:#FFFFFF,stroke-width:3px;
-    classDef sim fill:#083344,stroke:#22D3EE,color:#FFFFFF,stroke-width:2px;
-    classDef rf fill:#4C1D95,stroke:#D8B4FE,color:#FFFFFF,stroke-width:2px;
-    classDef cloud fill:#052E16,stroke:#4ADE80,color:#FFFFFF,stroke-width:2px;
+    classDef shift fill:#083344,stroke:#22D3EE,color:#FFFFFF,stroke-width:2px;
+    classDef lte fill:#2E1065,stroke:#C084FC,color:#FFFFFF,stroke-width:4px;
+    classDef rf fill:#450A0A,stroke:#FB7185,color:#FFFFFF,stroke-width:2px;
+    classDef network fill:#052E16,stroke:#4ADE80,color:#FFFFFF,stroke-width:3px;
     classDef power fill:#431407,stroke:#FB923C,color:#FFFFFF,stroke-width:2px;
+    classDef sim fill:#422006,stroke:#FACC15,color:#FFFFFF,stroke-width:2px;
 ```
 
-### Power Considerations
+### Power Became Part of the Communication Design
 
-The modem can generate short current peaks during transmission, so the power path was designed with:
+The modem supply could not be treated like an ordinary digital rail.
 
-- Bulk capacitance close to the modem
-- Local high-frequency decoupling
-- Short and wide power paths
-- Protection at the supply entry
-- Careful return-current paths
+The EC200U operates around **3.8 V** and its supply must remain stable while the modem changes operating state and transmits over the cellular network.  
+This influenced the power-path width, capacitor placement and the physical position of the modem power network.
 
-### RF Considerations
+<p align="center">
+  <img src="../media/documentation/lte-power-star-routing.png" width="68%">
+  <br><br>
+  <b>Cellular Modem Power Reference</b>
+  <br>
+  <sub>
+    Quectel reference topology showing local energy storage, high-frequency
+    decoupling and separate VBAT_RF / VBAT_BB paths.
+  </sub>
+</p>
 
-The RF section required additional PCB constraints:
+The manufacturer reference also separates the supply toward **VBAT_RF** and **VBAT_BB**, with local bulk and high-frequency capacitors placed close to the module.
 
-- Controlled **50 Ω antenna routing**
-- Short RF traces
-- Antenna keep-out area
-- Continuous ground reference
-- Separation from noisy power and digital sections
-- Careful placement of the modem and antenna connector
-
-> **The cellular section influenced both the power architecture and the physical PCB layout.**
+For EdgeGuard, this translated into a short, low-impedance modem supply path with local bulk capacitance and decoupling close to the cellular section.
 
 ---
+
+### Two Logic Domains Had to Meet
+
+The STM32 operates in a **3.3 V logic environment**, while the EC200U UART belongs to a **1.8 V domain**.
+
+Instead of connecting both devices directly, a dedicated level-translation stage was placed between the controller and modem.
+
+<p align="center">
+  <img src="../media/documentation/lte-uart-level-shifting.png" width="68%">
+  <br><br>
+  <b>UART Level-Translation Reference</b>
+  <br>
+  <sub>
+    Manufacturer reference showing the interface between the modem's
+    1.8 V UART domain and an external MCU logic domain.
+  </sub>
+</p>
+
+This interface provides the communication path used for **AT commands, modem control and data exchange**.
+
+---
+
+### Network Access Starts at the SIM Interface
+
+The cellular link also depends on a reliable USIM interface.
+
+The SIM signals were therefore treated as an external interface rather than ordinary GPIO, with attention to local filtering, protection and routing between the modem and SIM holder.
+
+<p align="center">
+  <img src="../media/documentation/lte-usim-interface.png" width="68%">
+  <br><br>
+  <b>USIM Interface Reference</b>
+  <br>
+  <sub>
+    Reference architecture for SIM power, clock, reset and data signals,
+    including filtering and protection close to the connector.
+  </sub>
+</p>
+
+The EC200U supports both **1.8 V and 3.0 V USIM operation**, allowing the modem to manage the SIM supply according to the inserted card.
+
+---
+
+### The Last Centimeters Became RF Design
+
+After the digital information reaches the modem, the final path to the network is no longer an ordinary PCB signal.
+
+The EC200U main antenna interface is specified for **50 Ω characteristic impedance**, so the antenna connection was treated as a controlled-impedance RF path.
+
+<p align="center">
+  <img src="../media/documentation/lte-main-antenna-matching.png" width="62%">
+  <br><br>
+  <b>Main Antenna Matching Reference</b>
+  <br>
+  <sub>
+    Quectel reference showing the reserved π-matching network between
+    ANT_MAIN and the external antenna connection.
+  </sub>
+</p>
+
+This influenced trace geometry, ground continuity, component placement and the distance between the modem and antenna connection.
+
+> **Cellular connectivity was not one component added to the board — it became a small subsystem combining power, logic translation, SIM access and RF design.**
+
+<br>
+
+<p align="center">
+  <sub><i>Reference: Quectel EC200U Series Hardware Design and Reference Design documentation.</i></sub>
+</p>
+
 ---
 
 ## GNSS Integration
