@@ -162,37 +162,46 @@ The real challenge was not adding these functions individually, but making all o
 The final PCB was shaped by a few key engineering decisions. Each one solved a different constraint of the system.
 
 ```mermaid
-flowchart LR
+flowchart TB
 
-    ISO["ISOLATION<br/>Separate industrial<br/>and logic domains"]:::cyan
+    PCB(["EDGEGUARD<br/><b>MULTILAYER PCB</b>"]):::pcb
 
-    POWER["POWER<br/>Handle cellular modem<br/>current peaks"]:::orange
+    subgraph ROBUST["ELECTRICAL ROBUSTNESS"]
+        direction LR
+        ISO["ISOLATION<br/><small>Separate field and logic domains</small>"]:::iso
+        PROT["PROTECTION<br/><small>Protect external interfaces</small>"]:::prot
+    end
 
-    RF["RF<br/>Protect antenna<br/>performance"]:::purple
+    subgraph INTEGRITY["SIGNAL & POWER INTEGRITY"]
+        direction LR
+        POWER["POWER<br/><small>Handle modem current demand</small>"]:::power
+        GND["GROUNDING<br/><small>Control return paths</small>"]:::gnd
+        RF["RF<br/><small>Preserve antenna performance</small>"]:::rf
+    end
 
-    BOARD["EDGEGUARD<br/>MULTILAYER PCB"]:::core
+    subgraph SERVICE["VALIDATION & SERVICEABILITY"]
+        direction LR
+        DIAG["DIAGNOSTICS<br/><small>Enable test and maintenance</small>"]:::diag
+    end
 
-    GND["GROUNDING<br/>Control return paths<br/>and reduce noise"]:::green
+    ROBUST ==> PCB
+    INTEGRITY ==> PCB
+    SERVICE ==> PCB
 
-    PROT["PROTECTION<br/>Protect sensitive<br/>external interfaces"]:::red
+    classDef pcb fill:#172554,stroke:#60A5FA,color:#FFFFFF,stroke-width:4px;
 
-    DEBUG["DIAGNOSTICS<br/>Support testing<br/>and maintenance"]:::yellow
+    classDef iso fill:#083344,stroke:#22D3EE,color:#FFFFFF,stroke-width:2px;
+    classDef prot fill:#450A0A,stroke:#FB7185,color:#FFFFFF,stroke-width:2px;
 
-    ISO --> BOARD
-    POWER --> BOARD
-    RF --> BOARD
+    classDef power fill:#431407,stroke:#FB923C,color:#FFFFFF,stroke-width:2px;
+    classDef gnd fill:#052E16,stroke:#4ADE80,color:#FFFFFF,stroke-width:2px;
+    classDef rf fill:#2E1065,stroke:#C084FC,color:#FFFFFF,stroke-width:2px;
 
-    BOARD --> GND
-    BOARD --> PROT
-    BOARD --> DEBUG
+    classDef diag fill:#422006,stroke:#FACC15,color:#FFFFFF,stroke-width:2px;
 
-    classDef core fill:#111827,stroke:#38BDF8,color:#FFFFFF,stroke-width:4px;
-    classDef cyan fill:#083344,stroke:#22D3EE,color:#FFFFFF,stroke-width:2px;
-    classDef orange fill:#431407,stroke:#FB923C,color:#FFFFFF,stroke-width:2px;
-    classDef purple fill:#2E1065,stroke:#C084FC,color:#FFFFFF,stroke-width:2px;
-    classDef green fill:#052E16,stroke:#4ADE80,color:#FFFFFF,stroke-width:2px;
-    classDef red fill:#450A0A,stroke:#FB7185,color:#FFFFFF,stroke-width:2px;
-    classDef yellow fill:#422006,stroke:#FACC15,color:#FFFFFF,stroke-width:2px;
+    style ROBUST fill:#0D1117,stroke:#22D3EE,stroke-width:1px
+    style INTEGRITY fill:#0D1117,stroke:#C084FC,stroke-width:1px
+    style SERVICE fill:#0D1117,stroke:#FACC15,stroke-width:1px
 ```
 
 ### Why these choices mattered
@@ -201,14 +210,12 @@ flowchart LR
 |---|---|
 | **Isolated RS-485** | Kept the industrial communication side separated from the MCU domain |
 | **Dedicated modem power path** | Helped support the high current demand of cellular communication |
-| **RF-aware placement** | Kept sensitive RF paths short and protected antenna areas |
+| **RF placement** | Kept sensitive RF paths short and protected antenna areas |
 | **Multilayer architecture** | Improved grounding, routing and power distribution |
 | **Protection circuits** | Added protection between the board and the external environment |
 | **Structured grounding** | Helped different electrical sections coexist more reliably |
 | **Diagnostic interfaces** | Made programming, testing and troubleshooting easier |
 
-> The board was not shaped by one big decision.  
-> It was shaped by many small decisions that had to work together.
 
 ---
 # Engineering Constraints Map
