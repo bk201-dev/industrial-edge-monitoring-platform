@@ -448,7 +448,7 @@ Some production material is intentionally not published.
 | **Complete Schematics** | Production design details are kept private |
 | **Gerber Files** | Manufacturing files are not part of the public repository |
 | **Complete BOM** | Component sourcing and production details are excluded |
-| **Production Firmware** | Only sanitized examples may be shared in the future |
+| **Production Firmware** | Only sanitized examples may be shared later |
 | **Internal Configuration Data** | Project specific configuration is kept private |
 
 <br>
