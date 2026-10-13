@@ -1,0 +1,188 @@
+# =========================================================
+# EdgeGuard - Git Ignore
+# =========================================================
+
+
+# ---------------------------------------------------------
+# Operating System
+# ---------------------------------------------------------
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# Linux / editor temporary files
+*~
+*.swp
+*.swo
+
+
+# ---------------------------------------------------------
+# Visual Studio Code
+# ---------------------------------------------------------
+
+.vscode/
+!.vscode/extensions.json
+
+
+# ---------------------------------------------------------
+# STM32CubeIDE / Eclipse
+# ---------------------------------------------------------
+
+.settings/
+.metadata/
+
+Debug/
+Release/
+
+*.launch
+*.log
+
+# Generated build files
+*.o
+*.obj
+*.d
+*.elf
+*.hex
+*.bin
+*.map
+*.list
+*.lst
+
+
+# ---------------------------------------------------------
+# STM32 / Embedded generated folders
+# ---------------------------------------------------------
+
+build/
+Build/
+cmake-build-*/
+
+# Backup files
+*.bak
+*.tmp
+*.temp
+
+
+# ---------------------------------------------------------
+# Altium Designer
+# ---------------------------------------------------------
+
+# Altium temporary / backup files
+History/
+Project\ Logs*/
+Project\ Outputs*/
+Generated/
+Generated\ Documents/
+
+*.PrjPcbStructure
+*.SchDocPreview
+*.PcbDocPreview
+
+*.LOG
+*.log
+
+# Altium lock / temporary files
+~$*
+.~*
+*.tmp
+
+# Altium backup files
+*.SchDoc.Zip
+*.PcbDoc.Zip
+
+
+# ---------------------------------------------------------
+# HyperLynx / Simulation temporary files
+# ---------------------------------------------------------
+
+*.tmp
+*.log
+*.bak
+*.cache
+
+simulation-output/
+simulation-results/
+temp/
+
+
+# ---------------------------------------------------------
+# LTspice temporary/generated files
+# ---------------------------------------------------------
+
+*.raw
+*.log
+*.net
+
+# Keep schematic files:
+# *.asc should NOT be ignored
+
+
+# ---------------------------------------------------------
+# Blender
+# ---------------------------------------------------------
+
+# Blender backup files
+*.blend1
+*.blend2
+*.blend3
+
+# Keep main Blender files:
+# *.blend should NOT be ignored
+
+
+# ---------------------------------------------------------
+# Python
+# ---------------------------------------------------------
+
+__pycache__/
+*.py[cod]
+
+.venv/
+venv/
+env/
+
+.ipynb_checkpoints/
+
+
+# ---------------------------------------------------------
+# Node / Web development
+# ---------------------------------------------------------
+
+node_modules/
+dist/
+
+.env
+.env.local
+
+
+# ---------------------------------------------------------
+# Archives / temporary exports
+# ---------------------------------------------------------
+
+*.7z
+*.rar
+
+temp/
+tmp/
+
+
+# ---------------------------------------------------------
+# Confidential / Internal
+# ---------------------------------------------------------
+
+private/
+confidential/
+internal/
+
+credentials/
+secrets/
+
+*.key
+*.pem
+
+.env*
+!.env.example
